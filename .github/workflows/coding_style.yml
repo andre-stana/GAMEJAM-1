@@ -1,0 +1,27 @@
+name: Coding Style
+
+on: push
+
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Check code
+        uses: actions/checkout@v3
+      - name: Run coding style checker
+        run:
+          check.sh $(pwd) $(pwd)
+      - name: Display errors
+        if: always()
+        run: |
+          if [ -f coding-style-reports.log ]; then
+            while read line; do
+              file=$(echo $line | cut -d ':' -f 1)
+              line_number=$(echo $line | cut -d ':' -f 2)
+              error=$(echo $line | cut -d ':' -f 3)
+              error_code=$(echo $line | cut -d ':' -f 4)
+              echo "::error title=${error} coding style error,file=${file},line={line_number}::${error_code}"
+            done < coding-style-reports.log
+          fi
