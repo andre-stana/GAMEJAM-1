@@ -40,6 +40,10 @@ EPITECH_BG = pygame.image.load(os.path.join("assets/other", "epitech_background.
 
 EPITECH_BG = pygame.transform.scale(EPITECH_BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+VICTOR_BG = pygame.image.load(os.path.join("assets/other", "vic2.png"))
+
+VICTOR_BG = pygame.transform.scale(VICTOR_BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
 
 class Player:
     X_POS = 80
@@ -226,7 +230,8 @@ def main():
         SCREEN.fill((255, 255, 255))
         userInput = pygame.key.get_pressed()
 
-        if (check_multiple_keys([pygame.K_v, pygame.K_i, pygame.K_c, pygame.K_t, pygame.K_o, pygame.K_r])):
+        keys = [pygame.K_e, pygame.K_p, pygame.K_i, pygame.K_t, pygame.K_e, pygame.K_c, pygame.K_h]
+        if (check_multiple_keys(keys)):
             BG = EPITECH_BG
 
         background()
