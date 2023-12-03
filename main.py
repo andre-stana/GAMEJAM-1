@@ -36,6 +36,10 @@ ROCK = [pygame.image.load(os.path.join("assets/rock", "rock1.png")),
 
 BG = pygame.image.load(os.path.join("assets/other", "background.png"))
 
+EPITECH_BG = pygame.image.load(os.path.join("assets/other", "epitech_background.png"))
+
+EPITECH_BG = pygame.transform.scale(EPITECH_BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
 
 class Player:
     X_POS = 80
@@ -174,7 +178,7 @@ class Bird(Obstacle):
 
 
 def main():
-    global game_speed, x_pos_bg, y_pos_bg, points, obstacles
+    global game_speed, x_pos_bg, y_pos_bg, points, obstacles, BG
     run = True
     clock = pygame.time.Clock()
     player = Player()
@@ -208,6 +212,12 @@ def main():
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
+    def check_multiple_keys(keys):
+        for key in keys:
+            if not pygame.key.get_pressed()[key]:
+                return False
+        return True
+
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -215,6 +225,9 @@ def main():
 
         SCREEN.fill((255, 255, 255))
         userInput = pygame.key.get_pressed()
+
+        if (check_multiple_keys([pygame.K_v, pygame.K_i, pygame.K_c, pygame.K_t, pygame.K_o, pygame.K_r])):
+            BG = EPITECH_BG
 
         background()
 
