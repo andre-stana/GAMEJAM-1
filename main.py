@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 import os
 import random
 
@@ -43,7 +44,6 @@ EPITECH_BG = pygame.transform.scale(EPITECH_BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
 VICTOR_BG = pygame.image.load(os.path.join("assets/other", "vic2.png"))
 
 VICTOR_BG = pygame.transform.scale(VICTOR_BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
-
 
 class Player:
     X_POS = 80
@@ -194,6 +194,8 @@ def main():
     obstacles = []
     death_count = 0
 
+    sound_play = False
+
     def score():
         global points, game_speed
         points += 1
@@ -233,10 +235,16 @@ def main():
         keys = [pygame.K_v, pygame.K_i, pygame.K_c, pygame.K_t, pygame.K_o, pygame.K_r]
         if (check_multiple_keys(keys)):
             BG = VICTOR_BG
+            if not sound_play:
+                sound_play = True
+                DICTATOR_SONG.play()
 
         keys = [pygame.K_e, pygame.K_p, pygame.K_i, pygame.K_t, pygame.K_e, pygame.K_c, pygame.K_h]
         if (check_multiple_keys(keys)):
             BG = EPITECH_BG
+            if not sound_play:
+                sound_play = True
+                CHRISTMAS_SONG.play()
 
         background()
 
@@ -288,12 +296,20 @@ def menu(death_count):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
             if event.type == pygame.KEYDOWN:
+                mixer.init()
+                mixer.pre_init(44100, -16, 1, 512)
+
+                DICTATOR_SONG = mixer.Sound(os.path.join("assets/sound", "victor.mp3"))
+                DICTATOR_SONG.set_volume(0.2)
+
+                CHRISTMAS_SONG = mixer.Sound(os.path.join("assets/sound", "christmas.mp3"))
+                CHRISTMAS_SONG.set_volume(0.2)
                 main()
 
 
 pygame.init()
-
 pygame.display.set_caption("EmeuJam")
 
 menu(death_count=0)
