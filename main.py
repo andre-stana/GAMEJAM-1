@@ -29,6 +29,11 @@ LARGE_ENEMY = [pygame.image.load(os.path.join("assets/cactus", "LargeCactus1.png
 BIRD = [pygame.image.load(os.path.join("assets/bird", "bird1.png")),
         pygame.image.load(os.path.join("assets/bird", "bird2.png"))]
 
+ROCK = [pygame.image.load(os.path.join("assets/rock", "rock1.png")),
+        pygame.image.load(os.path.join("assets/rock", "rock2.png")),
+        pygame.image.load(os.path.join("assets/rock", "rock3.png")),
+        pygame.image.load(os.path.join("assets/rock", "rock4.png"))]
+
 BG = pygame.image.load(os.path.join("assets/other", "background.png"))
 
 
@@ -54,7 +59,17 @@ class Player:
         self.player_rect.x = self.X_POS
         self.player_rect.y = self.Y_POS
 
+        self.rock_step_index = 0
+        self.rock = ROCK
+        self.rock_img = self.rock[0]
+        self.rock_rect = self.rock_img.get_rect()
+        self.rock_rect.x = self.X_POS - 125
+        self.rock_rect.y = self.Y_POS - 50
+
     def update(self, userInput):
+
+        self.rock_img = self.rock[self.rock_step_index // 5]
+
         if self.player_duck:
             self.duck()
         if self.player_run:
@@ -64,6 +79,9 @@ class Player:
 
         if self.step_index >= 10:
             self.step_index = 0
+
+        if self.rock_step_index >= 10:
+            self.rock_step_index = 0
 
         if userInput[pygame.K_UP] and not self.player_jump:
             self.player_duck = False
@@ -77,6 +95,8 @@ class Player:
             self.player_duck = False
             self.player_run = True
             self.player_jump = False
+
+        self.rock_step_index += 1
 
     def duck(self):
         self.image = self.duck_img[self.step_index // 5]
@@ -102,6 +122,7 @@ class Player:
             self.jump_vel = self.JUMP_VEL
 
     def draw(self, SCREEN):
+        SCREEN.blit(self.rock_img, (self.rock_rect.x, self.rock_rect.y))
         if (self.player_duck):
             SCREEN.blit(self.image, (self.player_rect.x, self.player_rect.y - 10))
         else:
@@ -177,6 +198,7 @@ def main():
         SCREEN.blit(text, textRect)
 
     def background():
+        index = 0
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
         SCREEN.blit(BG, (x_pos_bg, -10))
@@ -196,7 +218,6 @@ def main():
 
         background()
 
-        player.draw(SCREEN)
         player.update(userInput)
 
         if len(obstacles) == 0:
@@ -214,6 +235,8 @@ def main():
                 pygame.time.delay(2000)
                 death_count += 1
                 menu(death_count)
+
+        player.draw(SCREEN)
 
         score()
 
