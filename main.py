@@ -230,6 +230,10 @@ def main():
         SCREEN.fill((255, 255, 255))
         userInput = pygame.key.get_pressed()
 
+        keys = [pygame.K_v, pygame.K_i, pygame.K_c, pygame.K_t, pygame.K_o, pygame.K_r]
+        if (check_multiple_keys(keys)):
+            BG = VICTOR_BG
+
         keys = [pygame.K_e, pygame.K_p, pygame.K_i, pygame.K_t, pygame.K_e, pygame.K_c, pygame.K_h]
         if (check_multiple_keys(keys)):
             BG = EPITECH_BG
