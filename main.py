@@ -45,6 +45,15 @@ VICTOR_BG = pygame.image.load(os.path.join("assets/other", "vic2.png"))
 
 VICTOR_BG = pygame.transform.scale(VICTOR_BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+mixer.init()
+mixer.pre_init(44100, -16, 1, 512)
+
+DICTATOR_SONG = mixer.Sound(os.path.join("assets/sound", "victor.mp3"))
+DICTATOR_SONG.set_volume(0.2)
+
+CHRISTMAS_SONG = mixer.Sound(os.path.join("assets/sound", "christmas.mp3"))
+CHRISTMAS_SONG.set_volume(0.2)
+
 class Player:
     X_POS = 80
     Y_POS = 340
@@ -298,14 +307,6 @@ def menu(death_count):
                 run = False
                 pygame.quit()
             if event.type == pygame.KEYDOWN:
-                mixer.init()
-                mixer.pre_init(44100, -16, 1, 512)
-
-                DICTATOR_SONG = mixer.Sound(os.path.join("assets/sound", "victor.mp3"))
-                DICTATOR_SONG.set_volume(0.2)
-
-                CHRISTMAS_SONG = mixer.Sound(os.path.join("assets/sound", "christmas.mp3"))
-                CHRISTMAS_SONG.set_volume(0.2)
                 main()
 
 
