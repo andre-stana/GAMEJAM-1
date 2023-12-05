@@ -51,7 +51,7 @@ mixer.pre_init(44100, -16, 1, 512)
 DICTATOR_SONG = mixer.Sound(os.path.join("assets/sound", "victor.mp3"))
 DICTATOR_SONG.set_volume(0.2)
 
-CHRISTMAS_SONG = mixer.Sound(os.path.join("assets/sound", "christmas.mp3"))
+CHRISTMAS_SONG = mixer.Sound(os.path.join("assets/sound", "noel2.mp3"))
 CHRISTMAS_SONG.set_volume(0.2)
 
 class Player:
