@@ -246,7 +246,7 @@ def main():
             BG = VICTOR_BG
             if not sound_play:
                 sound_play = True
-                DICTATOR_SONG.play()
+                # DICTATOR_SONG.play()
 
         keys = [pygame.K_e, pygame.K_p, pygame.K_i, pygame.K_t, pygame.K_e, pygame.K_c, pygame.K_h]
         if (check_multiple_keys(keys)):
